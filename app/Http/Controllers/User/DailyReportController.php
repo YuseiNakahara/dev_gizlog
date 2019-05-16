@@ -26,13 +26,9 @@ class DailyReportController extends Controller
     {
         $userId = Auth::id();
         $inputs = $report->all();
-        // $daily_report = $this->report->all();
-        // dd($daily_report);
-
         if(empty($inputs)) {
             $daily_report = $this->report->fetchAllPersonalReports($userId);
         } else {
-            // dd($inputs);
             $daily_report = $this->report->fetchSearchingReports($userId, $inputs);
         }
 
@@ -70,9 +66,7 @@ class DailyReportController extends Controller
     */
     public function show($id)
     {
-        // dd($id);
         $daily_report = $this->report->find($id);
-        // dd($daily_report);
         return view('user.daily_report.show', compact('daily_report'));
     }
 
@@ -85,7 +79,6 @@ class DailyReportController extends Controller
     public function edit($id)
     {
         $daily_report = $this->report->find($id);
-        // dd($daily_report);
         return view('user.daily_report.edit', compact('daily_report'));
     }
 
@@ -99,7 +92,6 @@ class DailyReportController extends Controller
     public function update(DailyReportRequest $report, $id)
     {
         $daily_report = $report->all();
-        // dd($daily_report);
         $this->report->find($id)->fill($daily_report)->save();
         return redirect()->route('daily_report.index');
     }
