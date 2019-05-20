@@ -24,14 +24,14 @@ class DailyReportController extends Controller
     */
     public function index(Request $report)
     {
-        $userId = Auth::id();
+        $id = Auth::id();
         $inputs = $report->all();
 
         if(empty($inputs))
         {
             $daily_report = $this->report->fetchAll($inputs);
         } else {
-            $daily_report = $this->report->fetchSearchingReports($userId, $inputs);
+            $daily_report = $this->report->fetchSearchingReports($id, $inputs);
         }
 
         return view('user.daily_report.index', compact('daily_report', 'inputs'));
