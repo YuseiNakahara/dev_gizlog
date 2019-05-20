@@ -26,8 +26,10 @@ class DailyReportController extends Controller
     {
         $userId = Auth::id();
         $inputs = $report->all();
-        if(empty($inputs)) {
-            $daily_report = $this->report->fetchAllPersonalReports($userId);
+
+        if(empty($inputs))
+        {
+            $daily_report = $this->report->fetchAll($inputs);
         } else {
             $daily_report = $this->report->fetchSearchingReports($userId, $inputs);
         }
@@ -89,7 +91,7 @@ class DailyReportController extends Controller
     * @param int $id
     * @return \Illuminate\Http\Response
     */
-    public function update(DailyReportRequest $report, $id)
+    public function update(Request $report, $id)
     {
         $daily_report = $report->all();
         $this->report->find($id)->fill($daily_report)->save();

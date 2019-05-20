@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="btn-wrapper daily-report">
   {!! Form::open(['route' => 'daily_report.index', 'method' => 'GET']) !!}
-      {!! Form::input('month', 'search-month', empty($inputs['search-month']) ? null : $inputs['search-month'], ['class' => 'form-control']) !!}
+      {!! Form::input('month', 'search-month', empty($inputs) ? null : $inputs['search-month'], ['class' => 'form-control']) !!}
       <button type="submit" class="btn btn-icon"><i class="fa fa-search"></i></button>
   {!! Form::close() !!}
     <a class="btn btn-icon" href="{{ route('daily_report.create') }}"><i class="fa fa-plus"></i></a>
