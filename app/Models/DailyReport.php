@@ -32,7 +32,7 @@ class DailyReport extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function fetchAll($id)
+    public function fetchAllItems($id)
     {
         return $this->filterEqual('user_id', $id)
                     ->orderby('created_at', 'desc')

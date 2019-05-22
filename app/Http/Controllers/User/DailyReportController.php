@@ -27,9 +27,8 @@ class DailyReportController extends Controller
         $id = Auth::id();
         $inputs = $report->all();
 
-        if(empty($inputs))
-        {
-            $daily_report = $this->report->fetchAll($inputs);
+        if (empty($inputs)) {
+            $daily_report = $this->report->fetchAllItems($inputs);
         } else {
             $daily_report = $this->report->fetchSearchingReports($id, $inputs);
         }
@@ -57,7 +56,7 @@ class DailyReportController extends Controller
     {
         $inputs = $request->all();
         $this->report->create($inputs);
-        return redirect()->to('daily_report');
+        return redirect()->route('daily_report.index');
     }
 
     /**
@@ -91,7 +90,7 @@ class DailyReportController extends Controller
     * @param int $id
     * @return \Illuminate\Http\Response
     */
-    public function update(Request $report, $id)
+    public function update(DailyReportRequest $report, $id)
     {
         $daily_report = $report->all();
         $this->report->find($id)->fill($daily_report)->save();
