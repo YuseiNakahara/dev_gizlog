@@ -14,37 +14,37 @@
         <tbody>
           <tr>
             <th class="table-column">Title</th>
-            <td class="td-text">{{ $questions->title }}</td>
+            <td class="td-text">{{ $question->title }}</td>
           </tr>
           <tr>
             <th class="table-column">Question</th>
-            <td class='td-text'>{{ $questions->content }}</td>
+            <td class='td-text'>{{ $question->content }}</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
     <div class="comment-list">
-        <div class="comment-wrap">
-          <div class="comment-title">
-            <img src="{{ Auth::user()->avatar }}" class="avatar-img">
-            <p></p>
-            <p class="comment-date"></p>
-          </div>
-          <div class="comment-body"></div>
-        </div>
+          @foreach($comments as $comment)
+            <div class="comment-wrap">
+              <div class="comment-title">
+                <img src="{{ Auth::user()->avatar }}" class="avatar-img">
+                {{Auth::user()->name}}
+                <p></p>
+                <p class="comment-date">{{ $comment->created_at->format('Y-m-d') }}</p>
+              </div>
+              <div class="comment-body">{{ $comment->comment }}</div>
+            </div>
+          @endforeach
     </div>
   <div class="comment-box">
-    {!! Form::open(['route' => 'question.comment', 'method' => 'GET']) !!}
-      <!-- <input name="user_id" type="hidden" value=""> -->
+    {!! Form::open(['route' => 'question.comment', $question->id, 'method' => 'GET']) !!}
       {!! Form::input('hidden', 'user_id', Auth::id())!!}
-      <!-- <input name="question_id" type="hidden" value=""> -->
-      {!! Form::input('hidden', 'question_id', $questions['question_id']) !!}
+      {!! Form::input('hidden', 'question_id', $question->id) !!}
       <div class="comment-title">
         <img src="{{ Auth::user()->avatar }}" class="avatar-img"><p>コメントを投稿する</p>
       </div>
-      <div class="comment-body">
-        <!-- <textarea class="form-control" placeholder="Add your comment..." name="comment" cols="50" rows="10"></textarea> -->
+      <div class="comment-body {{ $errors->has('comment') ? 'has-error' : '' }}">
         {!! Form::textarea('comment', null, ['class' => 'form-control', 'placeholder' => 'Add your comment...']) !!}
         <span class="help-block">{{$errors->first('comment')}}</span>
       </div>

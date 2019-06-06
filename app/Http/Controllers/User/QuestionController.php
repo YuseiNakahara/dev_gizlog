@@ -33,6 +33,7 @@ class QuestionController extends Controller
     {
         $questions = $this->question->all();
         $tagcategory = $this->category->all();
+
         return view('user.question.index', compact('questions', 'tagcategory'));
     }
 
@@ -69,8 +70,9 @@ class QuestionController extends Controller
      */
     public function show($id)
     {
-        $questions = $this->question->find($id);
-        return view('user.question.show', compact('questions'));
+        $question = $this->question->find($id);
+        $comments = $question->comments->all();
+        return view('user.question.show', compact('question', 'comments'));
     }
 
     /**
@@ -81,7 +83,10 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $tagcategory = $this->category->all();
+        $questions = $this->question->find($id);
+        // dd($questions);
+        return view('user.question.edit', compact('tagcategory', 'questions'));
     }
 
     /**
@@ -93,7 +98,9 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $inputs = $request->all();
+        $this->report->find($id)->fill($inputs)->save();
+        return redirect()->to('question');
     }
 
     /**
@@ -104,15 +111,18 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->question->find($id)->delete();
+        return redirect()->to('question');
     }
 
-    public function mypage()
+    public function mypage(Request $question)
     {
-        return view('user.question.mypage');
+        $questions = $this->question->all();
+        $tagcategory = $this->category->all();
+        return view('user.question.mypage', compact('questions', 'tagcategory'));
     }
 
-    public function confirm(QuestionsRequest $request)
+    public function confirm(QuestionsRequest $request, $id = null)
     {
         $inputs = $request->all(); //カテゴリーid,Name,Contentが入っている
         // dd($inputs);
@@ -120,10 +130,11 @@ class QuestionController extends Controller
         return view('user.question.confirm', compact('inputs','tagcategory'));
     }
 
-    public function comment(QuestionsRequest $request)
+    public function comment(CommentRequest $request)
     {
         $inputs = $request->all();
+        // dd($inputs);
         $this->comment->create($inputs);
-        return redirect()->to('question');
+        return redirect()->back();
     }
 }

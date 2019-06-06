@@ -35,7 +35,7 @@ class commentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->all();
     }
 
     /**
@@ -69,7 +69,7 @@ class commentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //
     }
 
     /**
