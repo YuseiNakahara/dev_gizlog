@@ -6,7 +6,7 @@
   {!! Form::open(['route' => 'question.index', 'method' => 'GET']) !!}
     <div class="btn-wrapper">
       <div class="search-box">
-        <input class="form-control search-form" placeholder="Search words..." name="search_word" type="text">
+        {!! Form::input('text', 'searchword', empty($inputs['searchword']) ? null : $inputs['seachword'], ['class' => 'form-control search-form', 'placeholder' => 'Search words...']) !!}
         <button type="submit" class="search-icon"><i class="fa fa-search" aria-hidden="true"></i></button>
       </div>
       <a class="btn" href="{{ route('question.create') }}"><i class="fa fa-plus" aria-hidden="true"></i></a>
@@ -15,11 +15,10 @@
       </a>
     </div>
     <div class="category-wrap">
-      <div class="btn all" id="0">ALL</div>
-      <div class="btn front" id="1">FRONT</div>
-      <div class="btn back" id="2">BACK</div>
-      <div class="btn infra" id="3">INFRA</div>
-      <div class="btn others" id="4">OTHERS</div>
+      <div class="btn all" id= "0">All</div>
+      @foreach($tagcategory as $category)
+        <div class="btn {{ $category->name }}" id= "pref_id">{{ $category->name }}</div>
+      @endforeach
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>
   {!! Form::close() !!}

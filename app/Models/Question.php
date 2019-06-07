@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Comment;
+use App\Services\SearchingScope;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Model
 {
+    use SearchingScope, SoftDeletes;
+
     protected $fillable = [
         'user_id',
         'category',
@@ -37,6 +41,13 @@ class Question extends Model
         return $this->belongsTo(TagCategory::class, 'tag_category_id');
     }
 
+    public function SearchingWord($inputs)
+    {
+        return $this->filterEqual('tag_category_id', $inputs['tag_category_id'])
+                    ->filterLike('title', $inputs['searchword'])
+                    ->orderby('created_at', 'desc')
+                    ->get();
+    }
 
 }
 

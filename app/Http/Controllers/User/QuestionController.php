@@ -12,6 +12,7 @@ use App\Http\Controllers\Controller;
 
 class QuestionController extends Controller
 {
+
     protected $questions;
     protected $tagcategory;
     protected $comments;
@@ -29,10 +30,18 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $question)
+    public function index(Request $request, TagCategory $id)
     {
+        $inputs = $request->all();
+        // dd($inputs);
         $questions = $this->question->all();
         $tagcategory = $this->category->all();
+
+        if (array_key_exists('searchword', $inputs)) {
+            $questions = $this->question->SearchingWord($inputs);
+        } else {
+            $questions = $this->question->all();
+        }
 
         return view('user.question.index', compact('questions', 'tagcategory'));
     }
