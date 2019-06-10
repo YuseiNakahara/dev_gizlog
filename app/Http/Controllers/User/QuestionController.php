@@ -30,10 +30,9 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, TagCategory $id)
+    public function index(Request $request)
     {
         $inputs = $request->all();
-        // dd($inputs);
         $questions = $this->question->all();
         $tagcategory = $this->category->all();
 
@@ -66,7 +65,6 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->all();
-        // dd($inputs);
         $this->question->create($inputs);
         return redirect()->to('question');
     }
@@ -80,7 +78,9 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = $this->question->find($id);
+        // dd($question);
         $comments = $question->comments->all();
+        // dd($comments);
         return view('user.question.show', compact('question', 'comments'));
     }
 
@@ -105,10 +105,10 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuestionsRequest $request, $id)
     {
         $inputs = $request->all();
-        $this->report->find($id)->fill($inputs)->save();
+        $this->question->find($id)->fill($inputs)->save();
         return redirect()->to('question');
     }
 
@@ -136,7 +136,7 @@ class QuestionController extends Controller
         $inputs = $request->all(); //カテゴリーid,Name,Contentが入っている
         // dd($inputs);
         $tagcategory = $this->category->find($inputs['tag_category_id'])->name;
-        return view('user.question.confirm', compact('inputs','tagcategory'));
+        return view('user.question.confirm', compact('inputs','tagcategory', 'id'));
     }
 
     public function comment(CommentRequest $request)

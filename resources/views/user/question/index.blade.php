@@ -15,9 +15,9 @@
       </a>
     </div>
     <div class="category-wrap">
-      <div class="btn all" id= "0">All</div>
+      <div class = "btn all" id = "0" >ALL</div>
       @foreach($tagcategory as $category)
-        <div class="btn {{ $category->name }}" id= "pref_id">{{ $category->name }}</div>
+        <div class ="btn {{ $category->name }}" id= "{{ $category->id }}">{{ $category->name }}</div>
       @endforeach
       <input id="category-val" name="tag_category_id" type="hidden" value="">
     </div>

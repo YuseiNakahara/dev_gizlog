@@ -6,8 +6,8 @@
   <div class="panel panel-success">
     <div class="panel-heading">
       <img src="{{ Auth::user()->avatar }}" class="avatar-img">
-      <p>&nbsp;{{ Auth::user()->name }}さんの質問&nbsp;&nbsp;(&nbsp;&nbsp;)</p>
-      <p class="question-date"></p>
+      <p>&nbsp;{{ Auth::user()->name }}さんの質問&nbsp;&nbsp;({{ $question->tagcategory->name }})</p>
+      <p class="question-date">{{ $question->created_at }}</p>
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
