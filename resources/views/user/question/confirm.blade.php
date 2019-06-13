@@ -5,7 +5,7 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-    {{ Auth::user()->name }}の質問
+    {{ $question->tagcategory->name }}の質問
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">
