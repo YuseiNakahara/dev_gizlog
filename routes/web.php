@@ -42,11 +42,11 @@ Route::group(['prefix' => '/', 'user.', 'namespace' => 'User'], function () {
 
     Route::resource('report', DailyReportController::class);
 
-    Route::get('question/confirm', ['as' => 'question.confirm', 'uses' => 'QuestionController@confirm']);
+    Route::get('confirm/{id}', ['as' => 'question.updateconfirm', 'uses' => 'QuestionController@updateconfirm']);
+    Route::get('confirm', ['as' => 'question.createconfirm', 'uses' => 'QuestionController@createconfirm']);
     Route::get('question/comment', ['as' => 'question.comment', 'uses' => 'QuestionController@comment']);
     Route::get('question/mypage', ['as' => 'question.mypage', 'uses' => 'QuestionController@mypage']);
     Route::get('comment/store', ['as' => 'comment.store', 'use' => 'CommentsController@store']);
-    Route::get('question/store', 'QuestionController@store');
     Route::resource('question', QuestionController::class);
 });
 

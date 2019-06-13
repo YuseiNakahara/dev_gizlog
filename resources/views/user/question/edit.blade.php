@@ -5,10 +5,9 @@
 
 <div class="main-wrap">
   <div class="container">
-    {!! Form::open(['route' => ['question.confirm', $questions->id], 'method' => 'PUT']) !!}
+    {!! Form::open(['route' => ['question.updateconfirm', $questions->id], 'method' => 'GET']) !!}
       <div class="form-group {{ $errors->has('tag_category_id')? 'has-error' : '' }}">
         <select name='tag_category_id' class = "form-control selectpicker form-size-small" id ="pref_id">
-          <option value="{{ $questions->id }}">{{ $questions->tagcategory->name }}</option>
           @foreach($tagcategory as $category)
             <option value="{{ $category->id }}">{{ $category->name }}</option>
           @endforeach
@@ -23,7 +22,7 @@
         {!! Form::textarea('content', $questions->content, ['class' => 'form-control', 'placehoder' => 'Please write down your question here...']) !!}
         <span class="help-block">{{ $errors->first('content') }}</span>
       </div>
-      <input name="confirm" class="btn btn-success pull-right" type="submit" value="update">
+      {!! Form::submit('update', ['name' => 'confirm', 'class'  => 'btn btn-success pull-right'])!!}
     {!! Form::close() !!}
   </div>
 </div>

@@ -33,7 +33,6 @@ class QuestionController extends Controller
     public function index(Request $request)
     {
         $inputs = $request->all();
-        $questions = $this->question->all();
         $tagcategory = $this->category->all();
 
         if (array_key_exists('searchword', $inputs)) {
@@ -42,7 +41,7 @@ class QuestionController extends Controller
             $questions = $this->question->all();
         }
 
-        return view('user.question.index', compact('questions', 'tagcategory'));
+        return view('user.question.index', compact('inputs', 'questions', 'tagcategory'));
     }
 
     /**
@@ -50,10 +49,11 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $inputs = $request->all();
         $tagcategory = $this->category->all();
-        return view('user.question.create', compact('tagcategory'));
+        return view('user.question.create', compact('tagcategory', 'inputs'));
     }
 
     /**
@@ -64,6 +64,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $inputs = $request->all();
         $this->question->create($inputs);
         return redirect()->to('question');
@@ -92,6 +93,7 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
+        // dd($id);
         $tagcategory = $this->category->all();
         $questions = $this->question->find($id);
         // dd($questions);
@@ -107,7 +109,9 @@ class QuestionController extends Controller
      */
     public function update(QuestionsRequest $request, $id)
     {
+        // dd($id); confirmになっている
         $inputs = $request->all();
+        // dd($inputs);
         $this->question->find($id)->fill($inputs)->save();
         return redirect()->to('question');
     }
@@ -131,12 +135,19 @@ class QuestionController extends Controller
         return view('user.question.mypage', compact('questions', 'tagcategory'));
     }
 
-    public function confirm(QuestionsRequest $request, $id = null)
+    public function createconfirm(Request $request)
     {
-        $inputs = $request->all(); //カテゴリーid,Name,Contentが入っている
-        // dd($inputs);
-        $tagcategory = $this->category->find($inputs['tag_category_id'])->name;
-        return view('user.question.confirm', compact('inputs','tagcategory', 'id'));
+        $inputs = $request->all();
+        $question = $this->question->all();
+        return view('user.question.confirm', compact('inputs', 'question'));
+    }
+
+
+    public function updateconfirm(Request $request, $id)
+    {
+        $inputs = $request->all();
+        $question = $this->question->find($id);
+        return view('user.question.confirm', compact('inputs','question'));
     }
 
     public function comment(CommentRequest $request)
