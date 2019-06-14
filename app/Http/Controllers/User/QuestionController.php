@@ -64,7 +64,6 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
         $inputs = $request->all();
         $this->question->create($inputs);
         return redirect()->to('question');
@@ -79,9 +78,7 @@ class QuestionController extends Controller
     public function show($id)
     {
         $question = $this->question->find($id);
-        // dd($question);
         $comments = $question->comments->all();
-        // dd($comments);
         return view('user.question.show', compact('question', 'comments'));
     }
 
@@ -93,10 +90,8 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-        // dd($id);
         $tagcategory = $this->category->all();
         $questions = $this->question->find($id);
-        // dd($questions);
         return view('user.question.edit', compact('tagcategory', 'questions'));
     }
 
@@ -109,9 +104,7 @@ class QuestionController extends Controller
      */
     public function update(QuestionsRequest $request, $id)
     {
-        // dd($id); confirmになっている
         $inputs = $request->all();
-        // dd($inputs);
         $this->question->find($id)->fill($inputs)->save();
         return redirect()->to('question');
     }
@@ -153,7 +146,6 @@ class QuestionController extends Controller
     public function comment(CommentRequest $request)
     {
         $inputs = $request->all();
-        // dd($inputs);
         $this->comment->create($inputs);
         return redirect()->back();
     }
