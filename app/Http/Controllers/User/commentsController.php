@@ -35,7 +35,7 @@ class commentsController extends Controller
      */
     public function store(Request $request)
     {
-        $inputs = $request->all();
+        //
     }
 
     /**

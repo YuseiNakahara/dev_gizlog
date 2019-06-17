@@ -123,16 +123,13 @@ class QuestionController extends Controller
     public function mypage(Request $userId)
     {
         $questions = $this->question->all();
-        // dd($questions);
         return view('user.question.mypage', compact('questions'));
     }
 
     public function createconfirm(QuestionsRequest $request)
     {
         $inputs = $request->all();
-        // dd($inputs);
         $questions = $this->question->fill($inputs);
-        // dd($questions);
         return view('user.question.confirm', compact('inputs', 'questions'));
     }
 
@@ -141,7 +138,6 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $question = $this->question->find($id);
-        // dd($questions);
         return view('user.question.confirm', compact('inputs', 'question'));
     }
 
