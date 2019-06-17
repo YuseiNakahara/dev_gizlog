@@ -5,7 +5,11 @@
 <div class="main-wrap">
   <div class="panel panel-success">
     <div class="panel-heading">
-    {{ $question->tagcategory->name }}の質問
+      @if ($inputs["confirm"] === "create")
+        {{ $questions->tagcategory->name }}の質問
+      @else
+        {{ $question->tagcategory->name}}の質問
+      @endif
     </div>
     <div class="table-responsive">
       <table class="table table-striped table-bordered">

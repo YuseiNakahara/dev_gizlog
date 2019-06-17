@@ -26,6 +26,8 @@ class Question extends Model
         'deleted_at',
     ];
 
+    protected $table = 'questions';
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -33,15 +35,15 @@ class Question extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'question_id');
+        return $this->hasMany(Comment::class);
     }
 
-    public function tagcategory()
+    public function tagCategory()
     {
-        return $this->belongsTo(TagCategory::class, 'tag_category_id');
+        return $this->belongsTo(TagCategory::class);
     }
 
-    public function SearchingWord($inputs)
+    public function searchingWord($inputs)
     {
         return $this->filterEqual('tag_category_id', $inputs['tag_category_id'])
                     ->filterLike('title', $inputs['searchword'])

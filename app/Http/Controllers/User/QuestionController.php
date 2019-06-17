@@ -49,11 +49,10 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $inputs = $request->all();
         $tagcategory = $this->category->all();
-        return view('user.question.create', compact('tagcategory', 'inputs'));
+        return view('user.question.create', compact('tagcategory'));
     }
 
     /**
@@ -121,26 +120,29 @@ class QuestionController extends Controller
         return redirect()->to('question');
     }
 
-    public function mypage(Request $question)
+    public function mypage(Request $userId)
     {
         $questions = $this->question->all();
-        $tagcategory = $this->category->all();
-        return view('user.question.mypage', compact('questions', 'tagcategory'));
+        // dd($questions);
+        return view('user.question.mypage', compact('questions'));
     }
 
-    public function createconfirm(Request $request)
+    public function createconfirm(QuestionsRequest $request)
     {
         $inputs = $request->all();
-        $question = $this->question->all();
-        return view('user.question.confirm', compact('inputs', 'question'));
+        // dd($inputs);
+        $questions = $this->question->fill($inputs);
+        // dd($questions);
+        return view('user.question.confirm', compact('inputs', 'questions'));
     }
 
 
-    public function updateconfirm(Request $request, $id)
+    public function updateconfirm(QuestionsRequest $request, $id)
     {
         $inputs = $request->all();
         $question = $this->question->find($id);
-        return view('user.question.confirm', compact('inputs','question'));
+        // dd($questions);
+        return view('user.question.confirm', compact('inputs', 'question'));
     }
 
     public function comment(CommentRequest $request)

@@ -22,6 +22,8 @@ class Comment extends Model
         'deleted_at',
     ];
 
+    protected $table = 'comments';
+
     public function user()
     {
         return $this->belongsTo(User::class);
