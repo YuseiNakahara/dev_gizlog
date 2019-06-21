@@ -65,7 +65,7 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $this->question->create($inputs);
-        return redirect()->to('question');
+        return redirect()->route('question.index');
     }
 
     /**
@@ -105,7 +105,7 @@ class QuestionController extends Controller
     {
         $inputs = $request->all();
         $this->question->find($id)->fill($inputs)->save();
-        return redirect()->to('question');
+        return redirect()->route('question.index');
     }
 
     /**
@@ -126,7 +126,7 @@ class QuestionController extends Controller
         return view('user.question.mypage', compact('questions'));
     }
 
-    public function createconfirm(QuestionsRequest $request)
+    public function createConfirm(QuestionsRequest $request)
     {
         $inputs = $request->all();
         $questions = $this->question->fill($inputs);
@@ -134,7 +134,7 @@ class QuestionController extends Controller
     }
 
 
-    public function updateconfirm(QuestionsRequest $request, $id)
+    public function updateConfirm(QuestionsRequest $request, $id)
     {
         $inputs = $request->all();
         $question = $this->question->find($id);
